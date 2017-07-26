@@ -15,11 +15,26 @@
 <table border="1">
     <tr>
         <%-- TODO:大的--%>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th>COUNT</th>
+        <th>TITLE</th>
+        <th>ARTIST</th>
+        <th>PICTURE</th>
+        <th>YEAR</th>
+        <th>MUSEUM</th>
     </tr>
+    <c:forEach var="work" items="${sessionScope.pagination.list}" varStatus="vs">
+        <tr>
+            <td>${vs.count}</td>
+            <td>${work.title}</td>
+            <td>${work.artist}</td>
+            <td>${work.price}</td>
+            <td>${work.year}</td>
+            <td>${work.museum.name}</td>
+        </tr>
+    </c:forEach>
 </table>
+<c:import url="${ctx}/commons/page.jsp">
+    <c:param name="path" value="museum/${sessionScope.pagination.statement}"/>
+</c:import>
 </body>
 </html>
