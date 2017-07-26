@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/commons/inc.jsp"%>
+<%@ include file="/commons/inc.jsp" %>
 <html>
 <head>
     <title>Title</title>
@@ -14,7 +14,6 @@
 <body>
 <table border="1">
     <tr>
-        <%-- TODO:大的--%>
         <th>COUNT</th>
         <th>TITLE</th>
         <th>ARTIST</th>
@@ -27,14 +26,14 @@
             <td>${vs.count}</td>
             <td>${work.title}</td>
             <td>${work.artist}</td>
-            <td>${work.price}</td>
+            <td>${work.picture}</td>
             <td>${work.year}</td>
             <td>${work.museum.name}</td>
         </tr>
     </c:forEach>
 </table>
 <c:import url="${ctx}/commons/page.jsp">
-    <c:param name="path" value="museum/${sessionScope.pagination.statement}"/>
+    <c:param name="path" value="work/${sessionScope.pagination.statement}"/>
 </c:import>
 </body>
 </html>
