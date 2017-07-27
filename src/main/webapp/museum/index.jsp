@@ -1,35 +1,13 @@
-<!DOCTYPE html>
-<%@ page pageEncoding="UTF-8" %>
-<%@ include file="/commons/inc.jsp" %>
+<!DOCTYPE html><%@ page pageEncoding="UTF-8"%><%@ include file="/commons/inc.jsp"%>
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>work index page</title>
-    <script src="${ctx}/assets/js/jquery.min.js"></script>
-    <script>
-        $(function () {
-            $('button').click(function () {
-                $.ajax({
-                    url: '/work/test',
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        $.each(data, function (index, item) {
-                            console.log(index + ':' + item.title + ", " + item.museum.name);
-                        })
-                    }
-                });
-            });
-        });
-    </script>
+    <meta charset="UTF-8" />
+    <title>museum index page</title>
 </head>
 <body>
-<h1>Work INDEX</h1>
-<p><a href="${ctx}/work/add.jsp">ADD</a></p>
-<p><a href="${ctx}/work/queryAll">LIST</a></p>
-<p><a href="${ctx}/work/queryWorks">作品->博物馆</a></p>
-
-<button>AJAX</button>
+<h1>Museum INDEX</h1>
+<p><a href="${ctx}/museum/add.jsp">ADD</a></p>
+<p><a href="${ctx}/museum/queryAll">LIST</a></p>
+<p><a href="${ctx}/museum/queryMuseums">博物馆->作品</a></p>
 </body>
-${requestScope.message}
 </html>
