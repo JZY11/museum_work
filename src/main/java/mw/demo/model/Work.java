@@ -15,7 +15,7 @@ public class Work extends BaseModel {//多端
     private String picture;
     private String artist;
     private int year;
-    private String museumId;
+    private int museumId;
 
     private Museum museum;//一端
 }

@@ -15,9 +15,9 @@ public class FileUpload {
     public static String upload(String filePath, MultipartFile file) {
         String photoFileName = getPhotoFileName();
         String originalFileName = file.getOriginalFilename();
-        String exName = FilenameUtils.getExtension(originalFileName);
+        String extName = FilenameUtils.getExtension(originalFileName);
         try {
-            String fileName = photoFileName.concat("." + exName);
+            String fileName = photoFileName.concat("." + extName);
             file.transferTo(new File(filePath, fileName));
             return fileName;
         } catch (IOException e) {
@@ -30,3 +30,9 @@ public class FileUpload {
         return Long.toString(System.nanoTime()) + Double.toString(Math.random());
     }
 }
+/*
+    one to one
+    one to many
+    many to one
+    many to many
+ */

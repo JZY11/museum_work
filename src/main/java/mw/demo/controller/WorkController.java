@@ -1,17 +1,20 @@
 package mw.demo.controller;
 
-import mw.demo.util.Constant;
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
+import mw.demo.model.Museum;
 import mw.demo.model.Work;
 import mw.demo.service.WorkService;
+import mw.demo.util.Constant;
+import mw.demo.util.FileUpload;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("work")
@@ -24,26 +27,22 @@ public class WorkController extends BaseController {
         this.workService = workService;
     }
 
-    private static String getPhotoFileName() {
-        return Long.toString(System.nanoTime());
-    }
-
-    public void main(String[] args) {
-        System.out.println(getPhotoFileName());
+    @RequestMapping("test")
+    @ResponseBody
+    private List<Work> test() {
+        List<Work> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Museum museum = new Museum(i, "name...", "logo.png", "picture.jpg", "address...", null);
+            Work work = new Work(i, "title...", "picture.jpg", "artist...", 1900, 1, museum);
+            list.add(work);
+        }
+        return list;
     }
 
     @RequestMapping("create")
     private String create(Work work, @RequestParam MultipartFile pictureFile) {
         String photoPath = application.getRealPath(Constant.UPLOD_PHOTO_PATH);
-                String photoFileName = getPhotoFileName();
-                String originalFileName = pictureFile.getOriginalFilename();
-                String extName = FilenameUtils.getExtension(originalFileName);
-                try {
-                        pictureFile.transferTo(new File(photoPath, photoFileName.concat("." + extName)));
-                        work.setPicture(photoFileName.concat("." + extName));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        work.setPicture(FileUpload.upload(photoPath, pictureFile));
         workService.create(work);
         return "redirect:/work/queryAll";
     }
@@ -55,7 +54,11 @@ public class WorkController extends BaseController {
     }
 
     @RequestMapping("modify")
-    private String modify(Work work) {
+    private String modify(Work work, @RequestParam MultipartFile pictureFile) {
+        if (!pictureFile.isEmpty()) {
+            String photoPath = application.getRealPath(Constant.UPLOD_PHOTO_PATH);
+            work.setPicture(FileUpload.upload(photoPath, pictureFile));
+        }
         workService.modify(work);
         return "redirect:/work/queryAll";
     }
@@ -82,6 +85,7 @@ public class WorkController extends BaseController {
         session.setAttribute("pagination", workService.query("queryWorks", null, currentPage));
         return "redirect:/work/works.jsp";
     }
+
 
     @RequestMapping("queryWorks")
     private String queryWorks() {
