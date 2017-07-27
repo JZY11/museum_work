@@ -12,7 +12,7 @@
             <%--<input name="logo" placeholder="LOGO"><br>--%>
             <%--<input name="picture" placeholder="PICTURE"><br>--%>
             LOGO<input type="file" name="logoFile"><br>
-            PICTURE<input type="file" name="pictureFile" placeholder="PICTURE"><br>
+            PICTURE<input type="file" name="pictureFile"><br>
             <input name="address" placeholder="ADDRESS"><br>
             <input type="submit" value="ADD">
         </form>

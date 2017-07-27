@@ -6,6 +6,7 @@ import mw.demo.service.MuseumService;
 import mw.demo.service.WorkService;
 import mw.demo.util.Constant;
 import mw.demo.util.Pagination;
+import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ public class MuseumController extends BaseController {
     private final WorkService workService;
 
     @Autowired
-    public MuseumController(MuseumService museumService, WorkService workService) {
+    public MuseumController(MuseumService museumService, WorkService workService) {//构造器注解方式
         this.museumService = museumService;
         this.workService = workService;
     }
@@ -31,7 +32,7 @@ public class MuseumController extends BaseController {
     @RequestMapping("create")
     private String create(Museum museum, @RequestParam MultipartFile logoFile, @RequestParam MultipartFile pictureFile) {
         String photoPath = application.getRealPath(Constant.UPLOD_PHOTO_PATH);
-        String originalFileName = logoFile.getOriginalFilename();
+//        museum.setLogo(FileUpload.upload);
         museumService.create(museum);
         return "redirect:/museum/queryAll";
     }

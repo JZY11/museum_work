@@ -31,16 +31,16 @@
             address = #{address}
         WHERE museum.id = #{id}
     </update>
-    <!--<select id="queryAll" resultType="museum">-->
-    <!--SELECT *-->
-    <!--FROM db_mw.museum-->
-    <!--ORDER BY id-->
-    <!--</select>-->
-    <!--<select id="queryById" resultType="museum">-->
-    <!--SELECT *-->
-    <!--FROM db_mw.museum-->
-    <!--WHERE museum.id = #{id}-->
-    <!--</select>-->
+    <select id="queryAll" resultType="museum">
+    SELECT *
+    FROM db_mw.museum
+    ORDER BY id
+    </select>
+    <select id="queryById" resultType="museum">
+    SELECT *
+    FROM db_mw.museum
+    WHERE museum.id = #{id}
+    </select>
 
     <!--<resultMap id="queryMuseums_map" type="museum">-->
     <!--<result property="name" column="name"/>-->
