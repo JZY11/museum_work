@@ -1,9 +1,7 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: Tony.Jaa
-  Date: 2017/7/26
-  Time: 17:55
-  To change this template use File | Settings | File Templates.
+    Created by mingfei.net@gmail.com
+    7/25/17 15:07
+    https://github.com/thu/ssm-museum_work/
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/commons/inc.jsp" %>
@@ -12,6 +10,7 @@
     <title>Title</title>
 </head>
 <body>
+<h1>${sessionScope.pagination.list}</h1>
 <table border="1">
     <tr>
         <th>COUNT</th>
