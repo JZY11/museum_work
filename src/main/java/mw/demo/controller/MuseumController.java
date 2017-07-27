@@ -5,8 +5,8 @@ import mw.demo.model.Work;
 import mw.demo.service.MuseumService;
 import mw.demo.service.WorkService;
 import mw.demo.util.Constant;
+import mw.demo.util.FileUpload;
 import mw.demo.util.Pagination;
-import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +24,7 @@ public class MuseumController extends BaseController {
     private final WorkService workService;
 
     @Autowired
-    public MuseumController(MuseumService museumService, WorkService workService) {//构造器注解方式
+    public MuseumController(MuseumService museumService, WorkService workService) {
         this.museumService = museumService;
         this.workService = workService;
     }
@@ -32,7 +32,8 @@ public class MuseumController extends BaseController {
     @RequestMapping("create")
     private String create(Museum museum, @RequestParam MultipartFile logoFile, @RequestParam MultipartFile pictureFile) {
         String photoPath = application.getRealPath(Constant.UPLOD_PHOTO_PATH);
-//        museum.setLogo(FileUpload.upload);
+        museum.setLogo(FileUpload.upload(photoPath, logoFile));
+        museum.setPicture(FileUpload.upload(photoPath, pictureFile));
         museumService.create(museum);
         return "redirect:/museum/queryAll";
     }
@@ -68,15 +69,13 @@ public class MuseumController extends BaseController {
 
     @RequestMapping("queryMuseums/{currentPage}")
     private String queryMuseums(@PathVariable int currentPage) {
-//        session.setAttribute("pagination", museumService.query("queryMuseums", null, currentPage));
-
         Pagination<Museum> pagination = museumService.query("queryMuseums", null, currentPage);
-                for (int i = 0; i < pagination.getList().size(); i++) {
-                        int museumId = pagination.getList().get(i).getId();
-                        List<Work> works = workService.queryList("queryWorksByMuseumId", museumId);
-                        pagination.getList().get(i).setWorks(works);
-                    }
-                session.setAttribute("pagination", pagination);
+        for (int i = 0; i < pagination.getList().size(); i++) {
+            int museumId = pagination.getList().get(i).getId();
+            List<Work> works = workService.queryList("queryWorksByMuseumId", museumId);
+            pagination.getList().get(i).setWorks(works);
+        }
+        session.setAttribute("pagination", pagination);
         return "redirect:/museum/museums.jsp";
     }
 
