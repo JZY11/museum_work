@@ -1,4 +1,5 @@
-<!DOCTYPE html><%@ page pageEncoding="UTF-8"%><%@ include file="/commons/inc.jsp"%>
+<!DOCTYPE html><%@ page pageEncoding="UTF-8"%>
+<%@ include file="/commons/inc.jsp"%>
 <html>
 <head>
     <meta charset="UTF-8" />
